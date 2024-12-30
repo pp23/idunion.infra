@@ -17,4 +17,13 @@ build {
   sources = [
     "source.hcloud.k3s",
   ]
+
+  provisioner "shell" {
+    inline = [
+      "wget -O ./k3s 'https://github.com/k3s-io/k3s/releases/download/${var.K3S_VERSION}/k3s'",
+      "wget -O ./k3s.hashsums.txt 'https://github.com/k3s-io/k3s/releases/download/${var.K3S_VERSION}/sha256sum-amd64.txt'",
+      "sha256sum -c ./k3s.hashsums.txt --ignore-missing",
+      "mv ./k3s /usr/bin/k3s",
+    ]
+  }
 }

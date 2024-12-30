@@ -12,3 +12,8 @@ variable "VERSION" {
   type  = string
   description = "Unique version which identifies this snapshot in terraform via tags"
 }
+
+variable "K3S_VERSION" {
+  type = string
+  description = "Version of k3s to install"
+}
