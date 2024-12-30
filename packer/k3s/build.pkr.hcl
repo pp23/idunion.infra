@@ -23,7 +23,22 @@ build {
       "wget -O ./k3s 'https://github.com/k3s-io/k3s/releases/download/${var.K3S_VERSION}/k3s'",
       "wget -O ./k3s.hashsums.txt 'https://github.com/k3s-io/k3s/releases/download/${var.K3S_VERSION}/sha256sum-amd64.txt'",
       "sha256sum -c ./k3s.hashsums.txt --ignore-missing",
-      "mv ./k3s /usr/bin/k3s",
+      "mv ./k3s /usr/local/bin/k3s",
+      "chmod +x /usr/local/bin/k3s",
+    ]
+  }
+
+  provisioner "file" {
+    source = "${var.K3S_SYSTEMD_SERVICE_FILE}"
+    destination = "/etc/systemd/system/k3s.service"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "systemctl daemon-reload",
+      "systemctl enable k3s",
+      # DO NOT START k3s! This would create secrets like the node-token that should never get stored in a snapshot
+      #"systemctl start k3s NEVER_DO_THIS!",
     ]
   }
 }
