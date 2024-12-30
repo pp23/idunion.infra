@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cat<<-EOF>/etc/netplan/60-floating-ip.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - ${SERVER_IP_ADDRESS}/64
+EOF
+
+netplan apply
