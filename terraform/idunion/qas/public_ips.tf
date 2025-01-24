@@ -1,5 +1,6 @@
 resource "hcloud_floating_ip" "kubernetes" {
-  type      = "ipv6"
+  type          = "ipv6"
+  home_location = "fsn1"
 }
 
 resource "hcloud_primary_ip" "system_node" {
