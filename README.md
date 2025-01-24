@@ -18,3 +18,13 @@ packer build -var VERSION=$(git log -1 --format=%H) -var TOKEN=$(cat .hcloud.tok
 ```
 
 This creates a snapshot of the built image in the Hetzner Cloud.
+
+## Deploy
+
+* OpenTofu v1.9.0
+
+```
+# obtains the current IPv6 egress address of the local machine and allows it access to SSH/Kubernetes Control Plane
+tofu plan -var hcloud_token="<HCLOUD_TOKEN>" -var node_ssh_pub="<NODE_SSH_PUB>" -var allowed_admin_access_ip=`curl -s6 ip.me` -out PLAN
+tofu apply PLAN
+```

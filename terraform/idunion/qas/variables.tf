@@ -23,3 +23,8 @@ variable "node_ssh_pub" {
   type        = string
   description = "SSH public key string to access the kubernetes nodes"
 }
+
+variable "allowed_admin_access_ip" {
+  type        = string
+  description = "IPv4/IPv6 address which is allowed to pass the firewall to administration ports like 22 (SSH) and 6443 (Kubernetes control plane)"
+}

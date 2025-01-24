@@ -23,3 +23,8 @@ resource "hcloud_floating_ip_assignment" "system_node" {
   floating_ip_id = hcloud_floating_ip.kubernetes.id
   server_id      = hcloud_server.system_node.id
 }
+
+resource "hcloud_firewall_attachment" "system_node" {
+  firewall_id = hcloud_firewall.kubernetes_system_node.id
+  server_ids  = [hcloud_server.system_node.id]
+}
